@@ -1,7 +1,8 @@
 """
 這個檔案負責 exercises 資料表的定義
 """
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 from models.base import Base
 
 
@@ -13,3 +14,5 @@ class Exercise(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(100), unique=True)
+    muscle_group_id = Column(Integer, ForeignKey('muscle_groups.id'))
+    muscle_group = relationship("MuscleGroup")

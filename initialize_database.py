@@ -9,7 +9,7 @@ from models.user import User
 from models.workout_set import WorkoutSet
 from models.workout import Workout
 from models.exercise import Exercise
-from models.muscle_group import MajorMuscleGroup, MinorMuscleGroup, ExerciseMinorMuscleGroup
+from models.muscle_group import MuscleGroup
 
 # 讀取配置檔案
 config = configparser.ConfigParser()
