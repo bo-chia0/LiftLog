@@ -17,6 +17,5 @@ class WorkoutSet(Base):
     exercise_id = Column(Integer, ForeignKey('exercises.id'))
     reps = Column(Integer)
     weight = Column(DECIMAL)
-    rest_time = Column(Integer)
     workout = relationship("Workout")
     exercise = relationship("Exercise")
