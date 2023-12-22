@@ -4,6 +4,7 @@ users, workouts, exercises, sets, muscle groups
 """
 import configparser
 from sqlalchemy import create_engine
+import pandas as pd
 from models.base import Base
 from models.user import User
 from models.workout_set import WorkoutSet
@@ -25,5 +26,16 @@ database = db_config.get('database')
 # 創建資料庫連接
 engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}/{database}')
 
+# 如果資料庫已存在則刪除
+Base.metadata.drop_all(engine)
+
 # 創建資料庫模型
 Base.metadata.create_all(engine)
+
+# 讀取 CSV 檔案
+muscle_groups_df = pd.read_csv('data/muscle_groups.csv')
+exercises_df = pd.read_csv('data/exercises.csv')
+
+# 匯入數據到資料庫
+muscle_groups_df.to_sql('muscle_groups', engine, index=False, if_exists='append')
+exercises_df.to_sql('exercises', engine, index=False, if_exists='append')
