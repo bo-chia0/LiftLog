@@ -2,7 +2,7 @@
 這個檔案負責 exercises 資料表的定義
 """
 from sqlalchemy import Column, Integer, String
-from base import Base
+from models.base import Base
 
 
 class Exercise(Base):

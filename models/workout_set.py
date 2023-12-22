@@ -3,7 +3,7 @@
 """
 from sqlalchemy import Column, Integer, DECIMAL, ForeignKey
 from sqlalchemy.orm import relationship
-from base import Base
+from models.base import Base
 
 
 class WorkoutSet(Base):
