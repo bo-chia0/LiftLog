@@ -15,4 +15,3 @@ class User(Base):
     email = Column(String(100), unique=True)
     password = Column(String(100))
     username = Column(String(100), unique=True)
-    bio = Column(Text)
