@@ -1,0 +1,4 @@
+id,email,password,username
+1,user1@example.com,password123,user1
+2,user2@example.com,password123,user2
+3,user3@example.com,password123,user3
