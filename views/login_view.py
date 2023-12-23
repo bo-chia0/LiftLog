@@ -4,7 +4,7 @@
 import flet as ft
 from flet import Row, Column
 from flet_core.control_event import ControlEvent
-from config import WIN_WIDTH, WIN_HEIGHT, USER_ID
+from config import WIN_WIDTH, WIN_HEIGHT, CURRENT_USER_ID
 from controllers.account_controllers import login
 
 def login_page(page: ft.Page):
@@ -55,10 +55,11 @@ def login_page(page: ft.Page):
         try:
             user = login(email, password)
             if user is not None:
-                global USER_ID 
-                USER_ID = user.id
+                global CURRENT_USER_ID 
+                CURRENT_USER_ID = user.id
                 page.controls.clear()
-                # 可以在這裡添加代碼轉到其他頁面
+                from views.home_view import home_page
+                home_page(page)
             else:
                 raise Exception("帳號或密碼錯誤")
         except Exception as ex:
