@@ -54,6 +54,11 @@ def register_page(page: ft.Page):
             from views.login_view import login_page
             login_page(page)
         except Exception as ex:
+            print('Error: ', ex)
             error_msg.visible = True
+            text_email.value = ""  # 清除電子郵件
+            text_username.value = ""  # 清除使用者名稱
+            text_password.value = ""  # 清除密碼
+            text_email.focus()     # 重新聚焦到電子郵件輸入框
         finally:
             page.update()
