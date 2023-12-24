@@ -47,3 +47,79 @@ def get_set_records(workout_id: int, record_num: int) -> list:
         (exercise_name, record.weight, record.reps) for record, exercise_name in set_record
     ]
     return set_record
+
+def get_largest_weight(user_id: int, exercise_name: str) -> int:
+    """
+    獲取指定 user ID、exercise ID 的最大重量
+    
+    參數：
+    - user_id (int): 要查詢的 user ID。
+    - exercise_name (str): 要查詢的 exercise name。
+    
+    返回：
+    - int: 最大重量。
+    """
+    exercise_id = (
+        session.query(Exercise)
+        .filter(Exercise.name == exercise_name)
+        .first()
+    )
+    if not exercise_id:
+        return 0
+    else:
+        exercise_id = exercise_id.id
+
+    largest_weight = (
+        session.query(WorkoutSet)
+            .join(Workout, WorkoutSet.workout_id == Workout.id)
+            .filter(Workout.user_id == user_id)
+            .filter(WorkoutSet.exercise_id == exercise_id)
+            .order_by(WorkoutSet.weight.desc())
+            .first()
+    )
+    return largest_weight.weight if largest_weight else 0
+
+def get_largest_weight_for_exercise(exercise_name: str) -> tuple:
+    """
+    獲取指定 exercise ID 的最大重量
+    
+    參數：
+    - exercise_name (str): 要查詢的 exercise name。
+    
+    返回：
+    - tuple: (最大重量, 使用者名稱)。
+    """
+    exercise_id = (
+        session.query(Exercise)
+        .filter_by(name=exercise_name)
+        .first()
+    )
+    if not exercise_id:
+        return 0, ""
+    else:
+        exercise_id = exercise_id.id
+    
+    largest_weight_record = (
+        session.query(WorkoutSet)
+        .filter_by(exercise_id=exercise_id)
+        .order_by(WorkoutSet.weight.desc())
+        .first()
+    )
+    if not largest_weight_record:
+        return 0, ""
+    
+    largest_weight = largest_weight_record.weight
+    user_id = (
+        session.query(Workout)
+        .filter_by(id=largest_weight_record.workout_id)
+        .first()
+        .user_id
+    )
+    user_name = (
+        session.query(User)
+        .filter_by(id=user_id)
+        .first()
+        .username
+    )
+
+    return largest_weight, user_name 
