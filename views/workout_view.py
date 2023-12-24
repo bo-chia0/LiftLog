@@ -1,5 +1,5 @@
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT, CURRENT_USER_ID, CURRENT_WORKOUT_ID
+from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
 from views.components import header_logo, create_bottom_app_bar
 from controllers.set_controllers import add_set, get_set_records
 from controllers.muscle_group_controllers import get_muscle_groups, get_exercise_by_muscle_group
@@ -77,7 +77,7 @@ def workout_page(page: ft.Page):
     # ------------------ 新增按鈕 ------------------ #
     def add_record(e: ft.ControlEvent):
         add_set(
-            CURRENT_WORKOUT_ID,
+            GlobalConfig.CURRENT_WORKOUT_ID,
             dropdown_exercise.value,
             int(textfield_reps.value),
             int(textfield_weight.value)
@@ -105,8 +105,7 @@ def workout_page(page: ft.Page):
 
     """ 2nd row: data table """
     def update_data_table() -> list:
-        global CURRENT_WORKOUT_ID
-        set_records = get_set_records(CURRENT_WORKOUT_ID, 5)
+        set_records = get_set_records(GlobalConfig.CURRENT_WORKOUT_ID, 5)
         set_rows = [
             ft.DataRow(
                 cells=[
@@ -131,15 +130,13 @@ def workout_page(page: ft.Page):
 
     """ 3rd row: start/end exercise button """
     def start_new_workout(e: ft.ControlEvent):
-        global CURRENT_WORKOUT_ID
         if button_start.text == "開始訓練":
-            global CURRENT_USER_ID
-            CURRENT_WORKOUT_ID = add_workout(CURRENT_USER_ID)
+            GlobalConfig.CURRENT_WORKOUT_ID = add_workout(GlobalConfig.CURRENT_USER_ID)
             data_table.rows = update_data_table()
             button_start.text = "結束訓練"
             page.update()
         else:
-            end_current_workout(CURRENT_WORKOUT_ID)
+            end_current_workout(GlobalConfig.CURRENT_WORKOUT_ID)
             button_start.text = "開始訓練"
             page.update()
 

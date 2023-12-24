@@ -5,11 +5,16 @@ WIN_WIDTH = 400
 WIN_HEIGHT = 800
 
 """
-目前使用的 User
+目前使用的 User 和 Workout ID
 """
-CURRENT_USER_ID = 1
+class GlobalConfig:
+    CURRENT_USER_ID = None
+    CURRENT_WORKOUT_ID = None
 
-"""
-目前的 Workout
-"""
-CURRENT_WORKOUT_ID = 1
+    @classmethod
+    def set_current_user_id(cls, user_id):
+        cls.CURRENT_USER_ID = user_id
+
+    @classmethod
+    def set_current_workout_id(cls, workout_id):
+        cls.CURRENT_WORKOUT_ID = workout_id
