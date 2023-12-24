@@ -4,8 +4,9 @@
 import flet as ft
 from flet import Row, Column
 from flet_core.control_event import ControlEvent
-from config import WIN_WIDTH, WIN_HEIGHT, CURRENT_USER_ID
+from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
 from controllers.account_controllers import login
+from controllers.workout_controllers import get_last_workout_id_by_user_id
 
 def login_page(page: ft.Page):
     """
@@ -55,8 +56,8 @@ def login_page(page: ft.Page):
         try:
             user = login(email, password)
             if user is not None:
-                global CURRENT_USER_ID 
-                CURRENT_USER_ID = user.id
+                GlobalConfig.set_current_user_id(user.id)
+                GlobalConfig.set_current_workout_id(get_last_workout_id_by_user_id(user.id))
                 page.controls.clear()
                 from views.home_view import home_page
                 home_page(page)
