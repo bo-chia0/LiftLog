@@ -30,3 +30,12 @@ def get_workout_info(workout_id: int) -> tuple():
     user_name = session.query(User).filter(User.id == workout.user_id).first().username
     date_time = workout.start_time.strftime("%Y-%m-%d %H:%M:%S")
     return user_name, date_time
+
+def get_last_workout_id_by_user_id(user_id: int) -> int:
+    return (
+        session.query(Workout)
+        .filter(Workout.user_id == user_id)
+        .order_by(Workout.id.desc())
+        .first()
+        .id
+    )
