@@ -27,7 +27,7 @@ def create_bottom_app_bar():
                     icon=ft.icons.ADD, on_click=navigate_to_workout_page
                 ),
                 ft.IconButton(
-                    icon=ft.icons.PEOPLE
+                    icon=ft.icons.PEOPLE, on_click=navigate_to_social_page
                 ),
             ],
             alignment=ft.MainAxisAlignment.SPACE_AROUND
@@ -44,3 +44,8 @@ def navigate_to_workout_page(e: ft.ControlEvent):
     from views.workout_view import workout_page
     e.page.controls.clear()
     workout_page(e.page)
+
+def navigate_to_social_page(e: ft.ControlEvent):
+    from views.social_view import social_page
+    e.page.controls.clear()
+    social_page(e.page)
