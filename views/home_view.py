@@ -1,5 +1,5 @@
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT, CURRENT_USER_ID
+from config import WIN_WIDTH, WIN_HEIGHT
 from views.components import header_logo, create_bottom_app_bar, navigate_to_workout_page
 
 def home_page(page: ft.Page):
@@ -34,7 +34,7 @@ def home_page(page: ft.Page):
                 exercise_dropdown,
                 date_dropdown
             ],
-            alignment=ft.MainAxisAlignment.CENTER, spacing=10
+            alignment=ft.MainAxisAlignment.SPACE_AROUND
         ),
         height=WIN_HEIGHT*0.1, bgcolor=ft.colors.RED
     )
@@ -77,7 +77,7 @@ def home_page(page: ft.Page):
                 line_chart_container,
                 pie_chart_container
             ],
-            alignment=ft.MainAxisAlignment.START, height=WIN_HEIGHT*0.9
+            alignment=ft.MainAxisAlignment.START, height=WIN_HEIGHT*0.9, spacing=0
         )
     )
     
