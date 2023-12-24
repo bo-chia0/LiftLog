@@ -3,6 +3,7 @@
 """
 import flet as ft
 from config import WIN_WIDTH, WIN_HEIGHT
+from controllers.muscle_group_controllers import get_muscle_groups, get_exercise_by_muscle_group
 
 """ 頂部 header logo"""
 header_logo = ft.Container(
@@ -49,3 +50,31 @@ def navigate_to_social_page(e: ft.ControlEvent):
     from views.social_view import social_page
     e.page.controls.clear()
     social_page(e.page)
+
+""" 根據肌群選擇動作 """
+# ------------------ 部位 ------------------ #
+# 根據部位提供不同動作選項
+def dropdown_muscle_group_change(e: ft.ControlEvent):
+    update_dropdown_exercise(e)
+    e.page.update()
+# 製作下拉式選單
+muscle_groups = get_muscle_groups()
+dropdown_muscle_group = ft.Dropdown(
+    options=[
+        ft.dropdown.Option(group) for group in muscle_groups
+    ], 
+    value=muscle_groups[0], on_change=dropdown_muscle_group_change, 
+    width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+)
+
+# ------------------ 動作 ------------------ #
+# 下拉式選單
+dropdown_exercise = ft.Dropdown(
+    width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+)
+def update_dropdown_exercise(e: ft.ControlEvent):
+    dropdown_exercise.options = [
+        ft.dropdown.Option(exercise) for exercise in \
+            get_exercise_by_muscle_group(dropdown_muscle_group.value)
+    ]
+    e.page.update()

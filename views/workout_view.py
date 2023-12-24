@@ -1,8 +1,7 @@
 import flet as ft
 from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
-from views.components import header_logo, create_bottom_app_bar
+from views.components import header_logo, create_bottom_app_bar, dropdown_exercise, dropdown_muscle_group
 from controllers.set_controllers import add_set, get_set_records
-from controllers.muscle_group_controllers import get_muscle_groups, get_exercise_by_muscle_group
 from controllers.workout_controllers import add_workout, end_current_workout
 
 def workout_page(page: ft.Page):
@@ -15,35 +14,8 @@ def workout_page(page: ft.Page):
     page.window_height = WIN_HEIGHT
 
     """ 1st row: new record """
-    # ------------------ 部位 ------------------ #
     text_muscle_group = ft.Text("部位")
-    # 根據部位提供不同動作選項
-    def dropdown_muscle_group_change(e: ft.ControlEvent):
-        exercises = get_exercise_by_muscle_group(dropdown_muscle_group.value)
-        dropdown_exercise.options = [
-            ft.dropdown.Option(exercise) for exercise in exercises
-        ]
-        page.update()
-    # 製作下拉式選單
-    muscle_groups = get_muscle_groups()
-    dropdown_muscle_group = ft.Dropdown(
-        options=[
-            ft.dropdown.Option(group) for group in muscle_groups
-        ], 
-        value=muscle_groups[0], on_change=dropdown_muscle_group_change, 
-        width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
-    )
-
-    # ------------------ 動作 ------------------ #
     text_exercise = ft.Text("動作")
-    # 下拉式選單
-    exercises = get_exercise_by_muscle_group(dropdown_muscle_group.value)
-    dropdown_exercise = ft.Dropdown(
-        options=[
-            ft.dropdown.Option(exercise) for exercise in exercises
-        ],
-        width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
-    )
     row_exercise = ft.Row(
             controls=[
                 text_muscle_group,
