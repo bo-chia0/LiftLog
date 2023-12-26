@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from models.workout_set import WorkoutSet
 from models.workout import Workout
 from models.exercise import Exercise
@@ -123,3 +124,40 @@ def get_largest_weight_for_exercise(exercise_name: str) -> tuple:
     )
 
     return largest_weight, user_name 
+
+def get_exercise_max_weight_each_workout(user_id:int, exercise_name: str) -> dict:
+    """
+    指定 user ID、exercise name, 獲取每次 workout 的最大重量
+
+    參數：
+    - user_id (int): 要查詢的 user ID。
+    - exercise_name (str): 要查詢的 exercise name。
+
+    返回：
+    - dict: 每次 workout 的最大重量, key 是 workout ID, value 是最大重量
+    """
+    exercise_id = (
+        session.query(Exercise)
+        .filter_by(name=exercise_name)
+        .first()
+    )
+    if not exercise_id:
+        return {}
+    else:
+        exercise_id = exercise_id.id
+        
+    max_weights = (
+        session.query(
+            WorkoutSet.workout_id,
+            func.max(WorkoutSet.weight).label('max_weight')
+        )
+        .join(Workout, Workout.id == WorkoutSet.workout_id)
+        .filter(WorkoutSet.exercise_id == exercise_id, Workout.user_id == user_id)
+        .group_by(WorkoutSet.workout_id)
+        .all()
+    )
+
+    max_weight_dict = {
+        workout_id: max_weight for workout_id, max_weight in max_weights
+    } if max_weights else {}
+    return max_weight_dict
