@@ -57,7 +57,7 @@ def login_page(page: ft.Page):
             user = login(email, password)
             if user is not None:
                 GlobalConfig.set_current_user_id(user.id)
-                GlobalConfig.set_current_workout_id(get_last_workout_id_by_user_id(user.id))
+                GlobalConfig.set_current_workout_id(get_last_workout_id_by_user_id(user.id, 1)[0])
                 page.controls.clear()
                 from views.home_view import home_page
                 home_page(page)
