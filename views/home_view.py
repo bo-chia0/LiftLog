@@ -2,6 +2,7 @@ import flet as ft
 from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
 from views.components import header_logo, create_bottom_app_bar, dropdown_exercise, dropdown_muscle_group
 from controllers.set_controllers import get_largest_weight, get_largest_weight_for_exercise, get_exercise_max_weight_each_workout
+from controllers.workout_controllers import get_recent_n_months_workout_count
 
 def home_page(page: ft.Page):
     """
@@ -119,8 +120,45 @@ def home_page(page: ft.Page):
     )
 
     """ 4th row: Bar charts """
+    workout_count_chart = ft.BarChart(
+        bar_groups=[
+            ft.BarChartGroup(
+                x=i,
+                bar_rods=[
+                    ft.BarChartRod(
+                        from_y=0,
+                        to_y=result['count'],
+                        width=20,                        
+                        color=ft.colors.BLACK54,
+                        tooltip=str(result['count']),
+                        border_radius=0,
+                    ),
+                ],
+            ) for i, result in enumerate(get_recent_n_months_workout_count(GlobalConfig.CURRENT_USER_ID, 6))
+        ],
+        border=ft.border.all(1, ft.colors.GREY_400),
+        left_axis=ft.ChartAxis(
+            labels_size=0,
+            title=ft.Text("訓練次數"), title_size=25
+        ),
+        bottom_axis=ft.ChartAxis(
+            labels=[
+                ft.ChartAxisLabel(
+                    value=i, label=ft.Container(
+                        ft.Text(f"{result['month']:02d}-{result['year']%100}"), 
+                        padding=10
+                    )
+                ) for i, result in enumerate(get_recent_n_months_workout_count(GlobalConfig.CURRENT_USER_ID, 6))
+            ], labels_size=40,
+            title=ft.Text("月－年"), title_size=20
+        ),
+        horizontal_grid_lines=ft.ChartGridLines(
+            color=ft.colors.GREY_300, interval=5, width=1
+        )
+    )
     bar_chart_container = ft.Container(
-        height=WIN_HEIGHT*0.25, bgcolor=ft.colors.GREEN
+        content=workout_count_chart,
+        height=WIN_HEIGHT*0.3
     )
 
     """ 5th row: Pie charts """
