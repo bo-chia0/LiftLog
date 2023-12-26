@@ -1,13 +1,13 @@
-"""
-定義 views 共用的參數
-"""
-WIN_WIDTH = 400
-WIN_HEIGHT = 800
-
-"""
-目前使用的 User 和 Workout ID
-"""
 class GlobalConfig:
+    """
+    定義 views 共用的參數
+    """
+    WIN_WIDTH = 400
+    WIN_HEIGHT = 800
+    
+    """
+    目前使用的 User 和 Workout ID
+    """
     CURRENT_USER_ID = None
     CURRENT_WORKOUT_ID = None
 

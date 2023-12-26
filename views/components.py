@@ -2,7 +2,7 @@
 儲存重複出現的 components
 """
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT
+from config import GlobalConfig
 from controllers.muscle_group_controllers import get_muscle_groups, get_exercise_by_muscle_group
 
 """ 頂部 header logo"""
@@ -10,7 +10,7 @@ header_logo = ft.Container(
     content=ft.Text(
         "LiftLog", size=35, weight=ft.FontWeight.W_900
     ),
-    height=WIN_HEIGHT*0.1,
+    height=GlobalConfig.WIN_HEIGHT*0.1,
     alignment=ft.alignment.center,
     bgcolor=ft.colors.GREY_100,
 )
@@ -33,7 +33,7 @@ def create_bottom_app_bar():
             ],
             alignment=ft.MainAxisAlignment.SPACE_AROUND
         ),
-        height=WIN_HEIGHT*0.1, bgcolor=ft.colors.GREY_500
+        height=GlobalConfig.WIN_HEIGHT*0.1, bgcolor=ft.colors.GREY_500
     )
 
 def navigate_to_home_page(e: ft.ControlEvent):
@@ -64,13 +64,13 @@ dropdown_muscle_group = ft.Dropdown(
         ft.dropdown.Option(group) for group in muscle_groups
     ], 
     value=muscle_groups[0], on_change=dropdown_muscle_group_change, 
-    width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+    width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
 )
 
 # ------------------ 動作 ------------------ #
 # 下拉式選單
 dropdown_exercise = ft.Dropdown(
-    width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+    width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
 )
 def update_dropdown_exercise(e: ft.ControlEvent):
     dropdown_exercise.options = [

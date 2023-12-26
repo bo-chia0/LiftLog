@@ -1,5 +1,5 @@
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
+from config import GlobalConfig
 from views.components import header_logo, create_bottom_app_bar, dropdown_exercise, dropdown_muscle_group
 from controllers.set_controllers import add_set, get_set_records
 from controllers.workout_controllers import add_workout, end_current_workout
@@ -10,8 +10,8 @@ def workout_page(page: ft.Page):
     """
     # 視窗 properties
     page.title = "訓練"
-    page.window_width = WIN_WIDTH
-    page.window_height = WIN_HEIGHT
+    page.window_width = GlobalConfig.WIN_WIDTH
+    page.window_height = GlobalConfig.WIN_HEIGHT
 
     """ 1st row: new record """
     text_muscle_group = ft.Text("部位")
@@ -29,11 +29,11 @@ def workout_page(page: ft.Page):
     # ------------------ 訓練資訊 ------------------ #
     text_weight = ft.Text("重量")
     textfield_weight = ft.TextField(
-        width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+        width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
     )
     text_reps = ft.Text("次數")
     textfield_reps = ft.TextField(
-        width=WIN_WIDTH*0.35, height=WIN_HEIGHT*0.075
+        width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
     )
 
     row_stats = ft.Row(
@@ -58,7 +58,7 @@ def workout_page(page: ft.Page):
         page.update()
 
     button_add = ft.ElevatedButton(
-        text="新增", on_click=add_record, width=WIN_WIDTH*0.35
+        text="新增", on_click=add_record, width=GlobalConfig.WIN_WIDTH*0.35
     )
     row_button = ft.Row(controls=[button_add], alignment=ft.MainAxisAlignment.CENTER)
 
@@ -72,7 +72,7 @@ def workout_page(page: ft.Page):
             ],
             alignment=ft.MainAxisAlignment.START
         ),
-        height=WIN_HEIGHT*0.22#, bgcolor=ft.colors.RED
+        height=GlobalConfig.WIN_HEIGHT*0.22#, bgcolor=ft.colors.RED
     )
 
     """ 2nd row: data table """
@@ -97,7 +97,7 @@ def workout_page(page: ft.Page):
     
     data_table_container = ft.Container(
         content=data_table,
-        height=WIN_HEIGHT*0.4#, bgcolor=ft.colors.BLUE
+        height=GlobalConfig.WIN_HEIGHT*0.4#, bgcolor=ft.colors.BLUE
     )
 
     """ 3rd row: start/end exercise button """
@@ -115,14 +115,14 @@ def workout_page(page: ft.Page):
     button_start = ft.ElevatedButton(
         text="開始訓練",
         on_click=start_new_workout,
-        width=WIN_WIDTH*0.35,  height=WIN_HEIGHT*0.075
+        width=GlobalConfig.WIN_WIDTH*0.35,  height=GlobalConfig.WIN_HEIGHT*0.075
     )
     button_container = ft.Container(
         content=ft.Row(
             controls=[button_start],
             alignment=ft.MainAxisAlignment.CENTER
         ),
-        height=WIN_HEIGHT*0.1#, bgcolor=ft.colors.GREEN
+        height=GlobalConfig.WIN_HEIGHT*0.1#, bgcolor=ft.colors.GREEN
     )
 
     """ navigation bar """
@@ -138,7 +138,7 @@ def workout_page(page: ft.Page):
                 button_container
             ], 
             alignment=ft.MainAxisAlignment.START,
-            height=WIN_HEIGHT*0.9
+            height=GlobalConfig.WIN_HEIGHT*0.9
         )
     )
 

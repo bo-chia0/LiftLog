@@ -1,5 +1,5 @@
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
+from config import GlobalConfig
 from views.components import header_logo, create_bottom_app_bar, dropdown_exercise, dropdown_muscle_group
 from controllers.set_controllers import get_largest_weight, get_largest_weight_for_exercise, get_exercise_max_weight_each_workout, get_muscle_groups_portion
 from controllers.workout_controllers import get_recent_n_months_workout_count
@@ -11,8 +11,8 @@ def home_page(page: ft.Page):
     """
     # 視窗 properties
     page.title = "主頁"
-    page.window_width = WIN_WIDTH
-    page.window_height = WIN_HEIGHT
+    page.window_width = GlobalConfig.WIN_WIDTH
+    page.window_height = GlobalConfig.WIN_HEIGHT
     
     """ 2nd row: personal records """
     # ------------------ 個人紀錄 ------------------ #
@@ -99,12 +99,12 @@ def home_page(page: ft.Page):
             ],
             alignment=ft.MainAxisAlignment.SPACE_AROUND
         ), 
-        height=WIN_HEIGHT*0.15
+        height=GlobalConfig.WIN_HEIGHT*0.15
     )
     
     """ 3rd row: Line charts """
     line_chart_container = ft.Container(
-        height=WIN_HEIGHT*0.25
+        height=GlobalConfig.WIN_HEIGHT*0.25
     )
 
     """ 1st row: dropdown menus """
@@ -117,7 +117,7 @@ def home_page(page: ft.Page):
             ],
             alignment=ft.MainAxisAlignment.SPACE_AROUND
         ),
-        height=WIN_HEIGHT*0.1
+        height=GlobalConfig.WIN_HEIGHT*0.1
     )
 
     """ 4th row: Bar charts """
@@ -159,7 +159,7 @@ def home_page(page: ft.Page):
     )
     bar_chart_container = ft.Container(
         content=workout_count_chart,
-        height=WIN_HEIGHT*0.3
+        height=GlobalConfig.WIN_HEIGHT*0.3
     )
 
     """ 5th row: Pie charts """
@@ -178,12 +178,12 @@ def home_page(page: ft.Page):
     )
     pie_chart_container = ft.Container(
         content=muscle_group_proportion_pie_chart,
-        height=WIN_HEIGHT*0.25
+        height=GlobalConfig.WIN_HEIGHT*0.25
     )
 
     """ 6th row: Data Table """
     data_table_container = ft.Container(
-        height=WIN_HEIGHT*0.25, bgcolor=ft.colors.BLUE
+        height=GlobalConfig.WIN_HEIGHT*0.25, bgcolor=ft.colors.BLUE
     )
 
     """ Organize the layout using Columns """
@@ -199,7 +199,7 @@ def home_page(page: ft.Page):
                 ],
                 scroll=ft.ScrollMode.ALWAYS
         ),
-        height=WIN_HEIGHT*0.75
+        height=GlobalConfig.WIN_HEIGHT*0.75
     )       
 
     """ navigation bar """
@@ -212,7 +212,7 @@ def home_page(page: ft.Page):
                 header_logo,
                 statistics
             ],
-            alignment=ft.MainAxisAlignment.START, height=WIN_HEIGHT*0.9, spacing=0
+            alignment=ft.MainAxisAlignment.START, height=GlobalConfig.WIN_HEIGHT*0.9, spacing=0
         )
     )
     

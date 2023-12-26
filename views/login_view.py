@@ -4,7 +4,7 @@
 import flet as ft
 from flet import Row, Column
 from flet_core.control_event import ControlEvent
-from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
+from config import GlobalConfig
 from controllers.account_controllers import login
 from controllers.workout_controllers import get_last_workout_id_by_user_id
 
@@ -14,8 +14,8 @@ def login_page(page: ft.Page):
     """
     # window properties
     page.title = "Login"
-    page.window_width = WIN_WIDTH
-    page.window_height = WIN_HEIGHT
+    page.window_width = GlobalConfig.WIN_WIDTH
+    page.window_height = GlobalConfig.WIN_HEIGHT
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     # elements
     text_email: ft.TextField = ft.TextField(

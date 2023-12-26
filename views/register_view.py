@@ -1,14 +1,14 @@
 import flet as ft
 from flet import Row, Column
 from controllers.account_controllers import register
-from config import WIN_WIDTH, WIN_HEIGHT
+from config import GlobalConfig
 
 
 def register_page(page: ft.Page):
     # window properties
     page.title = "Register"
-    page.window_width = WIN_WIDTH
-    page.window_height = WIN_HEIGHT
+    page.window_width = GlobalConfig.WIN_WIDTH
+    page.window_height = GlobalConfig.WIN_HEIGHT
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     # elements
     text_email: ft.TextField = ft.TextField(

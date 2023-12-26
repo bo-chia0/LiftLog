@@ -1,5 +1,5 @@
 import flet as ft
-from config import WIN_WIDTH, WIN_HEIGHT
+from config import GlobalConfig
 from views.components import header_logo, create_bottom_app_bar
 from controllers.workout_controllers import get_last_n_workout_ids, get_workout_info
 from controllers.set_controllers import get_set_records
@@ -10,8 +10,8 @@ def social_page(page: ft.Page):
     """
     # 視窗 properties
     page.title = "社交"
-    page.window_width = WIN_WIDTH
-    page.window_height = WIN_HEIGHT
+    page.window_width = GlobalConfig.WIN_WIDTH
+    page.window_height = GlobalConfig.WIN_HEIGHT
 
     """ 所有用戶的訓練紀錄 """
     # 單一訓練紀錄
@@ -61,7 +61,7 @@ def social_page(page: ft.Page):
             ],
             scroll=ft.ScrollMode.ALWAYS, spacing=15
         ),
-        height=WIN_HEIGHT*0.75
+        height=GlobalConfig.WIN_HEIGHT*0.75
     )
 
     """ 統整 components """
