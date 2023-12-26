@@ -1,8 +1,9 @@
 import flet as ft
 from config import WIN_WIDTH, WIN_HEIGHT, GlobalConfig
 from views.components import header_logo, create_bottom_app_bar, dropdown_exercise, dropdown_muscle_group
-from controllers.set_controllers import get_largest_weight, get_largest_weight_for_exercise, get_exercise_max_weight_each_workout
+from controllers.set_controllers import get_largest_weight, get_largest_weight_for_exercise, get_exercise_max_weight_each_workout, get_muscle_groups_portion
 from controllers.workout_controllers import get_recent_n_months_workout_count
+from controllers.muscle_group_controllers import get_muscle_groups
 
 def home_page(page: ft.Page):
     """
@@ -162,8 +163,22 @@ def home_page(page: ft.Page):
     )
 
     """ 5th row: Pie charts """
+    muscle_groups = get_muscle_groups()
+    color = [
+        ft.colors.AMBER, ft.colors.BLUE, ft.colors.GREEN, ft.colors.LIME, ft.colors.ORANGE, ft.colors.PINK
+    ]
+    muscle_group_proportion_pie_chart = ft.PieChart(
+        sections=[
+            ft.PieChartSection(
+                100*get_muscle_groups_portion(i+1, GlobalConfig.CURRENT_USER_ID),
+                title=f"{muscle_groups[i]}\n{100*get_muscle_groups_portion(i+1, GlobalConfig.CURRENT_USER_ID):.2f}%",
+                color=color[i]
+            ) for i in range(6)
+        ]
+    )
     pie_chart_container = ft.Container(
-        height=WIN_HEIGHT*0.25, bgcolor=ft.colors.ORANGE
+        content=muscle_group_proportion_pie_chart,
+        height=WIN_HEIGHT*0.25
     )
 
     """ 6th row: Data Table """

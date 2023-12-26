@@ -161,3 +161,30 @@ def get_exercise_max_weight_each_workout(user_id:int, exercise_name: str) -> dic
         workout_id: max_weight for workout_id, max_weight in max_weights
     } if max_weights else {}
     return max_weight_dict
+
+def get_muscle_groups_portion(muscle_group_id: int, user_id: int) -> int:
+    """
+    獲取指定 muscle group ID 的比重
+
+    參數：
+    - muscle_group_id (int): 要查詢的 muscle group ID。
+    - user_id (int): 要查詢的 user ID。
+
+    返回：
+    - int: 比重。
+    """
+    muscle_group_portion = (
+        session.query(WorkoutSet)
+        .join(Exercise, WorkoutSet.exercise_id == Exercise.id)
+        .join(Workout, WorkoutSet.workout_id == Workout.id)
+        .filter(Exercise.muscle_group_id == muscle_group_id)
+        .filter(Workout.user_id == user_id)
+        .count()
+    ) / (
+        session.query(WorkoutSet)
+        .join(Workout, WorkoutSet.workout_id == Workout.id)
+        .filter(Workout.user_id == user_id)
+        .count()
+    )
+
+    return muscle_group_portion
