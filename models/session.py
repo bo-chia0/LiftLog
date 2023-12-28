@@ -18,6 +18,3 @@ engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}/{database}
 
 # 創建 Session 工廠，綁定到引擎
 Session = sessionmaker(bind=engine)
-
-# 創建一個 Session 實例
-session = Session()
