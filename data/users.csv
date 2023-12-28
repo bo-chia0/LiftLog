@@ -1,4 +1,7 @@
 id,email,password,username
-1,user1@example.com,password123,user1
-2,user2@example.com,password123,user2
-3,user3@example.com,password123,user3
+1,user1@example.com,password123,Tim
+2,user2@example.com,password123,Bill
+3,user3@example.com,password123,Jim
+4,user4@example.com,password123,Amy
+5,user5@example.com,password123,Sasha
+6,user6@example.com,password123,Will
