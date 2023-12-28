@@ -72,3 +72,37 @@ def get_recent_n_months_workout_count(user_id: int, months: int) -> list:
     workout_counts = [{'year': year, 'month': month, 'count': count} for year, month, count in results]
     
     return workout_counts
+
+def get_recent_n_months_workout_time(user_id: int, months: int) -> list:
+    """
+    取得每一個月的訓練時間
+
+    參數：
+    - user_id (int): 要查詢的 user ID。
+    - months (int): 要查詢的月份數量。
+
+    返回：
+    - list: 每個月的訓練時間。
+    """
+        # 計算查詢的起始日期
+    start_date = datetime.now() - timedelta(days=30 * months)
+
+    # 構造查詢
+    results = session.query(
+        func.year(Workout.start_time).label('year'),
+        func.month(Workout.start_time).label('month'),
+        (func.sum(func.unix_timestamp(Workout.end_time) - func.unix_timestamp(Workout.start_time)) / 60.0).label('duration')
+    ).filter(
+        Workout.user_id == user_id,
+        Workout.start_time >= start_date
+    ).group_by(
+        'year', 'month'
+    ).order_by(
+        'year', 'month'
+    ).all()
+
+    # 將結果整理為列表
+    workout_times = [{'year': year, 'month': month, 'duration': duration} for year, month, duration in results]
+
+    session.close()
+    return workout_times
