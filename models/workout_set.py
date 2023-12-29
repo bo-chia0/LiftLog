@@ -1,7 +1,7 @@
 """
 這個檔案負責 sets 資料表的定義
 """
-from sqlalchemy import Column, Integer, DECIMAL, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from models.base import Base
 

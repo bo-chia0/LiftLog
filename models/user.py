@@ -1,7 +1,7 @@
 """
 這個檔案負責 users 資料表的定義
 """
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String
 from models.base import Base
 
 
