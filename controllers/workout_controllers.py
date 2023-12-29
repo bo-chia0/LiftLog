@@ -45,7 +45,10 @@ def get_last_workout_id_by_user_id(user_id: int, n: int) -> int:
             .order_by(Workout.id.desc())
             .limit(n)
         )]
-    return workout_ids
+    if len(workout_ids) > 0:
+        return workout_ids
+    else:
+        return [None]
 
 def get_recent_n_months_workout_count(user_id: int, months: int) -> list:
     """
