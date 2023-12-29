@@ -12,7 +12,7 @@ def add_workout(user_id: int) -> int:
         )
         session.add(new_workout)
         session.commit()
-    return new_workout.id
+        return new_workout.id
 
 def end_current_workout(workout_id: int) -> None:
     with Session() as session:
