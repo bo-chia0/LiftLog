@@ -61,8 +61,8 @@ def login_page(page: ft.Page):
                 print(f"用戶{user.id}登入成功! \
                       \n上次訓練紀錄編號: {GlobalConfig.CURRENT_WORKOUT_ID}")
                 page.controls.clear()
-                from views.home_view import home_page
-                home_page(page)
+                from views.workout_view import workout_page
+                workout_page(page)
             else:
                 raise Exception("帳號或密碼錯誤")
         except Exception as ex:
