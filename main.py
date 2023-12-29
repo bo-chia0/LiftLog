@@ -11,8 +11,7 @@ def main(page: ft.Page):
     """
     redirect 至登入畫面
     """
-    # login_page(page)
-    home_page(page)
+    login_page(page)
 
 if __name__ == "__main__":
     ft.app(target=main)
