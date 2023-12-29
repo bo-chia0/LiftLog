@@ -171,8 +171,8 @@ def home_page(page: ft.Page):
     muscle_group_proportion_pie_chart = ft.PieChart(
         sections=[
             ft.PieChartSection(
-                100*get_muscle_groups_portion(i, GlobalConfig.CURRENT_USER_ID),
-                title=f"{muscle_groups[i]}\n{100*get_muscle_groups_portion(i, GlobalConfig.CURRENT_USER_ID):.2f}%",
+                100*get_muscle_groups_portion(i+1, GlobalConfig.CURRENT_USER_ID),
+                title=f"{muscle_groups[i]}\n{100*get_muscle_groups_portion(i+1, GlobalConfig.CURRENT_USER_ID):.2f}%",
                 color=colors[i]
             ) for i in range(6)
         ]
