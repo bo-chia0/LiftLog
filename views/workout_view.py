@@ -6,14 +6,15 @@ from controllers.workout_controllers import add_workout, end_current_workout
 
 def workout_page(page: ft.Page):
     """
-    Workout layout for the application.
+    紀錄目前訓練的頁面
     """
     # 視窗 properties
     page.title = "訓練"
     page.window_width = GlobalConfig.WIN_WIDTH
     page.window_height = GlobalConfig.WIN_HEIGHT
 
-    """ 1st row: new record """
+    """ 1st row: 新增一組訓練 """
+    # 訓練動作
     text_muscle_group = ft.Text("部位")
     text_exercise = ft.Text("動作")
     row_exercise = ft.Row(
@@ -25,8 +26,7 @@ def workout_page(page: ft.Page):
             ],
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         )
-    
-    # ------------------ 訓練資訊 ------------------ #
+    #  訓練重量、次數
     text_weight = ft.Text("重量")
     textfield_weight = ft.TextField(
         width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
@@ -35,7 +35,7 @@ def workout_page(page: ft.Page):
     textfield_reps = ft.TextField(
         width=GlobalConfig.WIN_WIDTH*0.35, height=GlobalConfig.WIN_HEIGHT*0.075
     )
-
+    # 統整重量、次數
     row_stats = ft.Row(
         controls=[
             text_weight,
@@ -46,7 +46,7 @@ def workout_page(page: ft.Page):
         alignment=ft.MainAxisAlignment.SPACE_BETWEEN    
     )
 
-    # ------------------ 新增按鈕 ------------------ #
+    #  新增按鈕
     def add_record(e: ft.ControlEvent):
         add_set(
             GlobalConfig.CURRENT_WORKOUT_ID,
@@ -62,7 +62,7 @@ def workout_page(page: ft.Page):
     )
     row_button = ft.Row(controls=[button_add], alignment=ft.MainAxisAlignment.CENTER)
 
-    # ------------------ 合併 ------------------ #
+    # 統整新增一組訓練所需的元素
     new_record_container = ft.Container(
         content=ft.Column(
             controls=[
@@ -72,10 +72,10 @@ def workout_page(page: ft.Page):
             ],
             alignment=ft.MainAxisAlignment.START
         ),
-        height=GlobalConfig.WIN_HEIGHT*0.22#, bgcolor=ft.colors.RED
+        height=GlobalConfig.WIN_HEIGHT*0.22
     )
 
-    """ 2nd row: data table """
+    """ 2nd row: 上次訓練的內容 """
     def update_data_table() -> list:
         set_records = get_set_records(GlobalConfig.CURRENT_WORKOUT_ID, 5)
         set_rows = [
@@ -94,26 +94,25 @@ def workout_page(page: ft.Page):
             ],
             rows=update_data_table()
     )
-    
     data_table_container = ft.Container(
         content=data_table,
-        height=GlobalConfig.WIN_HEIGHT*0.4#, bgcolor=ft.colors.BLUE
+        height=GlobalConfig.WIN_HEIGHT*0.35
     )
 
-    """ 3rd row: start/end exercise button """
+    """ 3rd row: 開始或結束訓練按鈕 """
     def start_new_workout(e: ft.ControlEvent):
-        if button_start.text == "開始訓練":
+        if button_start.text == "開始新訓練":
             GlobalConfig.CURRENT_WORKOUT_ID = add_workout(GlobalConfig.CURRENT_USER_ID)
             data_table.rows = update_data_table()
             button_start.text = "結束訓練"
             page.update()
         else:
             end_current_workout(GlobalConfig.CURRENT_WORKOUT_ID)
-            button_start.text = "開始訓練"
+            button_start.text = "開始新訓練"
             page.update()
 
     button_start = ft.ElevatedButton(
-        text="開始訓練",
+        text="開始新訓練",
         on_click=start_new_workout,
         width=GlobalConfig.WIN_WIDTH*0.35,  height=GlobalConfig.WIN_HEIGHT*0.075
     )
@@ -122,23 +121,24 @@ def workout_page(page: ft.Page):
             controls=[button_start],
             alignment=ft.MainAxisAlignment.CENTER
         ),
-        height=GlobalConfig.WIN_HEIGHT*0.1#, bgcolor=ft.colors.GREEN
+        height=GlobalConfig.WIN_HEIGHT*0.1
     )
 
     """ navigation bar """
     page.bottom_appbar = create_bottom_app_bar()
 
-    # 用戶信息和目標
+    """ 統整頁面所有元素 """
     page.add(
         ft.Column(
             controls=[
                 header_logo,
+                ft.Text("新增訓練", size=20),
                 new_record_container,
+                ft.Text("訓練紀錄", size=20),
                 data_table_container,
                 button_container
             ], 
-            alignment=ft.MainAxisAlignment.START,
+            alignment=ft.MainAxisAlignment.START, spacing=3,
             height=GlobalConfig.WIN_HEIGHT*0.9
         )
     )
-

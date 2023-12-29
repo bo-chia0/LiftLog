@@ -58,6 +58,8 @@ def login_page(page: ft.Page):
             if user is not None:
                 GlobalConfig.set_current_user_id(user.id)
                 GlobalConfig.set_current_workout_id(get_last_workout_id_by_user_id(user.id, 1)[0])
+                print(f"用戶{user.id}登入成功! \
+                      \n上次訓練紀錄編號: {GlobalConfig.CURRENT_WORKOUT_ID}")
                 page.controls.clear()
                 from views.home_view import home_page
                 home_page(page)

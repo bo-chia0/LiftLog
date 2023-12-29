@@ -4,6 +4,7 @@ from views.components import create_bottom_app_bar, header_logo, dropdown_exerci
 from controllers.set_controllers import get_largest_weight, get_largest_weight_for_exercise, get_exercise_max_weight_each_workout, get_muscle_groups_portion
 from controllers.workout_controllers import get_recent_n_months_workout_count, get_recent_n_months_workout_time
 from controllers.muscle_group_controllers import get_muscle_groups
+from controllers.user_controllers import get_user_name_by_user_id
 
 def home_page(page: ft.Page):
     """
@@ -227,14 +228,18 @@ def home_page(page: ft.Page):
     statistics = ft.Container(
         ft.Column(
                 controls=[
+                    ft.Text(
+                        f"嗨 {get_user_name_by_user_id(GlobalConfig.CURRENT_USER_ID)}，歡迎回來"
+                            , size=20
+                    ),
                     dropdown_container,
                     record_container,
                     ft.Text("重量趨勢", size=20),
                     line_chart_container,
-                    ft.Text("訓練頻率", size=20),
-                    bar_chart_container,
                     ft.Text("訓練部位分佈", size=20),
                     pie_chart_container,
+                    ft.Text("訓練頻率", size=20),
+                    bar_chart_container,
                     ft.Text("每月累積訓練時間", size=20),
                     workout_time_container
                 ],
