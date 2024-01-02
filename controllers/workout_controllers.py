@@ -5,6 +5,15 @@ from models.workout import Workout
 from models.user import User
     
 def add_workout(user_id: int) -> int:
+    """
+    新增一筆 workout
+
+    參數：
+    - user_id (int): 要新增的 user ID。
+
+    回傳值：
+    - int: 新增的 workout ID
+    """
     with Session() as session:
         new_workout = Workout(
             user_id=user_id,
@@ -15,12 +24,27 @@ def add_workout(user_id: int) -> int:
         return new_workout.id
 
 def end_current_workout(workout_id: int) -> None:
+    """
+    結束當前 workout
+
+    參數：
+    - workout_id (int): 要結束的 workout ID。
+    """
     with Session() as session:
         workout = session.query(Workout).filter(Workout.id == workout_id).first()
         workout.end_time = datetime.now()
         session.commit()
 
 def get_last_n_workout_ids(n: int) -> list:
+    """
+    獲取最後 n 個 workout ID
+
+    參數：
+    - n (int): 要獲取的 workout 數量。
+
+    回傳值：
+    - list: 一個包含最後 n 個 workout ID 的 list
+    """
     with Session() as session:
         workout_ids = [
             workout.id for workout in session
@@ -31,6 +55,15 @@ def get_last_n_workout_ids(n: int) -> list:
     return workout_ids
 
 def get_workout_info(workout_id: int) -> tuple():
+    """
+    獲取指定 workout ID 的資訊
+
+    參數：
+    - workout_id (int): 要查詢的 workout ID。
+
+    回傳值：
+    - tuple: (username, datetime)
+    """
     with Session() as session:
         workout = session.query(Workout).filter(Workout.id == workout_id).first()
         user_name = session.query(User).filter(User.id == workout.user_id).first().username
@@ -38,6 +71,16 @@ def get_workout_info(workout_id: int) -> tuple():
     return user_name, date_time
 
 def get_last_workout_id_by_user_id(user_id: int, n: int) -> int:
+    """
+    獲取指定 user ID 的最後 n 筆 workout ID
+
+    參數：
+    - user_id (int): 要查詢的 user ID。
+    - n (int): 要獲取的 workout 數量。
+
+    回傳值：
+    - int: 最後 n 筆 workout ID
+    """
     with Session() as session:
         workout_ids = [workout.id for workout in (
             session.query(Workout)

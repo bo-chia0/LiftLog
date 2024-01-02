@@ -2,7 +2,6 @@ from sqlalchemy import func
 from models.workout_set import WorkoutSet
 from models.workout import Workout
 from models.exercise import Exercise
-from models.muscle_group import MuscleGroup
 from models.user import User
 from models.session import Session
 
