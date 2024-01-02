@@ -8,7 +8,13 @@ from models.base import Base
 
 class WorkoutSet(Base):
     """
-    sets 資料表儲存訓練組的資訊（重量、次數等）
+    sets 資料表儲存訓練組的資訊
+
+    id: Primary Key
+    workout_id: 當次訓練 ID (ForeignKey)
+    exercise_id: 訓練動作 ID (ForeignKey)
+    reps: 次數
+    weight: 重量
     """
     __tablename__ = 'sets'
 

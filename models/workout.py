@@ -9,6 +9,11 @@ from models.base import Base
 class Workout(Base):
     """
     workouts 資料表儲存每一次的訓練紀錄
+
+    id: Primary Key
+    user_id: 使用者 ID (ForeignKey)
+    start_time: 開始時間
+    end_time: 結束時間
     """
     __tablename__ = 'workouts'
 

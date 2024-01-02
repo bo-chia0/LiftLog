@@ -8,7 +8,11 @@ from models.base import Base
 
 class Exercise(Base):
     """
-    exercises 資料表儲存各種運動的基本資訊
+    exercises 資料表儲存各種訓練動作的資訊
+
+    id: Primary Key
+    name: 訓練動作名稱
+    muscle_group_id: 肌群 ID (ForeignKey)
     """
     __tablename__ = 'exercises'
 

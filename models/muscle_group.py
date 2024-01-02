@@ -7,7 +7,10 @@ from models.base import Base
 
 class MuscleGroup(Base):
     """
-    muscle_groups 資料表儲存各主要肌群的基本資訊
+    muscle_groups 資料表儲存各肌群的資訊
+
+    id: Primary Key
+    name: 肌群名稱
     """
     __tablename__ = 'muscle_groups'
 

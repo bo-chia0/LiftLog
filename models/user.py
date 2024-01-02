@@ -7,7 +7,12 @@ from models.base import Base
 
 class User(Base):
     """
-    users 資料表儲存各使用者的基本資訊
+    users 資料表儲存各使用者的資訊
+
+    id: Primary Key
+    email: 電子郵件
+    password: 密碼
+    username: 使用者名稱
     """
     __tablename__ = 'users'
 
