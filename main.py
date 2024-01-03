@@ -1,11 +1,9 @@
 """
-This is the entry point for your Flet application.
-Here, you would set up your Flet app and tie together the views and services.
+Flet 會找到 main.py 作為程式的進入點
 """
 
 import flet as ft
 from views.login_view import login_page
-from views.home_view import home_page
 
 def main(page: ft.Page):
     """
